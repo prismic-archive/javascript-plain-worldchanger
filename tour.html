@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+    	<title>WorldChanger - Change your world now!</title>
+
+        <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
+        <script src="assets/javascripts/vendor/prismic.io.js"></script>
+        <script src="assets/javascripts/app.js"></script>
+        <script src="assets/javascripts/bootstrap.min.js"></script>
+
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+
+    </head>
+
+    <body>
+    	<div class="wrapper">
+
+		    <header class="navbar navbar-worldchanger" role="navigation">
+		        <div class="container">
+
+		        	<div class="navbar-header">
+		        		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
+		        			<span class="sr-only">Toggle navigation</span>
+		        			<span class="icon-bar"></span>
+		        			<span class="icon-bar"></span>
+		        			<span class="icon-bar"></span>
+	        			</button>
+        				<a class="navbar-brand" href="/">WorldChanger</a>
+	        		</div>
+
+	        		<div class="navbar-collapse collapse" id="top-navbar">
+		        		<ul class="nav navbar-nav navbar-right">
+				          	<li><a href="/">Home</a></li>
+				          	<li class="active"><a href="/tour.html">Product tour</a></li>
+				          	<li><a href="/pricing.html">Pricing</a></li>
+				          	<li><a href="/faq.html">FAQ</a></li>
+				          	<li><a href="/about.html">About us</a></li>
+				          	<li><a href="/blog.html">Blog</a></li>
+				        </ul>
+		        	</div>
+		        </div>
+	       	</header>
+
+	       	<div class="container">
+	       	</div>
+
+			<article id="tour">
+				<script type="text/template">
+
+				<div class="container">
+
+					<div class="page-title">
+						<%= tour.getStructuredText("article.title") ? tour.getStructuredText("article.title").asHtml(ctx) : '' %>
+						<%= tour.getStructuredText("article.lede") ? tour.getStructuredText("article.lede").asHtml(ctx) : '' %>
+					</div>
+
+				</div>
+
+<% /* *********************************************************************************************************************** */ %>
+
+				<%
+				var list = [];
+
+                args.forEach(function (arg, i) {
+                	if (!!arg.getImage("argument.photo")) {
+                		list[0] = arg;
+                	}
+                	else {
+                		if (!!arg.getImage("argument.panoramaphoto")) {
+	                		list[3] = arg;
+	                	}
+                		else {
+                			if (i!=0 && i!=3) {
+                				list[i] = arg;
+                			}
+                		}
+                	}
+                });
+				%>
+
+				<% /* image principale */ %>
+
+				<div id="<%= list[0].id %>" class="large-image large-bright-image container">
+					<style type="text/css">
+						#<%= list[0].id %> {background-image: url(<%= list[0].getImage("argument.photo").views.large.url %>)}
+						@media (max-width: 992px) {
+							#<%= list[0].id %> {background-image: url(<%= list[0].getImage("argument.photo").views.medium.url %>)}
+						}
+						@media (max-width: 500px) {
+							#<%= list[0].id %> {background-image: url(<%= list[0].getImage("argument.photo").views.small.url %>)}
+						}
+					</style>
+					<div class="row">
+						<div class="col-sm-5 col-sm-offset-7">
+							<h2> <%= list[0].getStructuredText("argument.title") ? list[0].getStructuredText("argument.title").getTitle().text : '' %> </h2>
+							<%= list[0].getStructuredText("argument.catcher_description") ? list[0].getStructuredText("argument.catcher_description").asHtml(ctx) : '' %>
+						</div>
+					</div>
+				</div>
+
+				<% /* les 2 arguments suivants l'image principale */ %>
+
+				<div class="container"><div class="row">
+
+					<div id="<%= list[1].id %>" class="half-regular col-sm-5 col-sm-offset-1">
+						<img class="icon" src="<%= list[1].getImage('argument.icon') && list[1].getImage('argument.icon').views.small ? list[1].getImage('argument.icon').views.small.url : '' %>">
+						<h2><%= list[1].getStructuredText('argument.title') ? list[1].getStructuredText('argument.title').getTitle().text : '' %></h2>
+						<%= list[1].getStructuredText('argument.description') ? list[1].getStructuredText('argument.description').asHtml(ctx) : '' %>
+
+					</div>
+
+					<div id="<%= list[2].id %>" class="half-regular col-sm-5 col-sm-offset-1">
+						<img class="icon" src="<%= list[2].getImage('argument.icon') && list[2].getImage('argument.icon').views.small ? list[2].getImage('argument.icon').views.small.url : '' %>">
+						<h2><%= list[2].getStructuredText('argument.title') ? list[2].getStructuredText('argument.title').getTitle().text : '' %></h2>
+						<%= list[2].getStructuredText('argument.description') ? list[2].getStructuredText('argument.description').asHtml(ctx) : '' %>
+					</div>
+
+				</div></div>
+
+				<% /* image panorama photo */ %>
+				
+				<div id="<%= list[3].id %>" class="large-image large-dark-image">
+					<style type="text/css">
+						#<%= list[3].id %> {background-image: url(<%= list[3].getImage('argument.panoramaphoto').views.large.url %>)}
+						@media (max-width: 992px) {
+							#<%= list[3].id %> {background-image: url(<%= list[3].getImage('argument.panoramaphoto').views.medium.url %>)}
+						}
+						@media (max-width: 500px) {
+							#<%= list[3].id %> {background-image: url(<%= list[3].getImage('argument.panoramaphoto').views.small.url %>)}
+						}
+					</style>
+					<div class="container">
+						<h2><%= list[3].getStructuredText('argument.title') ? list[3].getStructuredText('argument.title').getTitle().text : '' %></h2>
+						<%= list[3].getStructuredText('argument.description') ? list[3].getStructuredText('argument.description').asHtml(ctx) : '' %>
+					</div>
+				</div>
+
+				<% /* les 2 arguments suivants l'image panorama photo */ %>
+				
+				<div class="container">
+					<div class="row regular-panels">
+						<div id="<%= list[4].id %>" class="regular-panel col-sm-6">
+							<h2><%= list[4].getStructuredText('argument.title') ? list[4].getStructuredText('argument.title').getTitle().text : '' %></h2>
+							<%= list[4].getStructuredText('argument.description') ? list[4].getStructuredText('argument.description').asHtml(ctx) : '' %>
+						</div>
+						<div id="<%= list[5].id %>" class="regular-panel col-sm-6">
+							<h2><%= list[5].getStructuredText('argument.title') ? list[5].getStructuredText('argument.title').getTitle().text : '' %></h2>
+							<%= list[5].getStructuredText('argument.description') ? list[5].getStructuredText('argument.description').asHtml(ctx) : '' %>
+						</div>
+						
+					</div>
+				</div>
+
+				<% /* les autres arguments */ %>
+
+				<% for (var i = 6; i < list.length ; i++) { %>
+
+					<div id="<%= list[i].id %>" class="container regular" style="background-image: url('<%= list[i].getImage('argument.icon') && list[i].getImage('argument.icon').views.small ? list[i].getImage('argument.icon').views.small.url : '' %>')">
+						<h2><%= list[i].getStructuredText('argument.title') ? list[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
+						<%= list[i].getStructuredText('argument.description') ? list[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
+					</div>
+				<% }; %>
+	 
+<% /* *********************************************************************************************************************** */ %>
+				<% /* bas de page avec le prix minimum */ %>
+
+				<div class="container" id="pricewell">
+					<p>
+						<%= home.getText("homepage.pricing_label") %>
+						<strong> $<%= minPrice %>/mo </strong>
+					</p>
+					<p><a class="btn btn-pricing" href="/pricing.html" role="button">
+						<%= home.getText("homepage.pricing_button_label") %> </a></p>
+				</div>
+
+				<style type="text/css">
+	                #pricewell {
+	                	background-image: url(<%= home.getImage("homepage.pricing_image").views.small.url %>)
+	                }
+	                @media (max-width: 767px) {
+	                	#pricewell {
+	                		background-image: url(<%= home.getImage("homepage.pricing_image").views.icon.url %>)
+	                	}
+	                }
+        		</style>
+
+				</script>
+			</article>
+
+			<!-- footer -->
+
+	       	<div class="footer-container">
+	       		<footer class="container">
+	       			<p>
+	       				WorldChanger is an example website to be used freely on top of the 
+	       				<a href="http://prismic.io">prismic.io</a>
+	       				writing-room and content query API.
+	       			</p>
+	       			<p>
+	       				<a href="/signin">Sign in to preview changes</a>
+	       			</p>
+	       		</footer>
+	       	</div>
+
+	    </div>
+	</body>
+
+</html>
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+    	<title>WorldChanger - Change your world now!</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+
+        <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
+        <script src="assets/javascripts/vendor/prismic.io.js"></script>
+        <script src="assets/javascripts/app.js"></script>
+        <script src="assets/javascripts/bootstrap.min.js"></script>
+
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+
+    </head>
+
+    <body>
+    	<div class="wrapper">
+			
+		    <header class="navbar navbar-worldchanger" role="navigation">
+		        <div class="container">
+
+		        	<div class="navbar-header">
+		        		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
+		        			<span class="sr-only">Toggle navigation</span>
+		        			<span class="icon-bar"></span>
+		        			<span class="icon-bar"></span>
+		        			<span class="icon-bar"></span>
+	        			</button>
+        				<a class="navbar-brand" href="/">WorldChanger</a>
+	        		</div>
+
+	        		<div class="navbar-collapse collapse" id="top-navbar">
+		        		<ul class="nav navbar-nav navbar-right">
+				          	<li><a href="/">Home</a></li>
+				          	<li><a href="/tour.html">Product tour</a></li>
+				          	<li><a href="/pricing.html">Pricing</a></li>
+				          	<li><a href="/faq.html">FAQ</a></li>
+				          	<li class="active"><a href="/about.html">About us</a></li>
+				          	<li><a href="/blog.html">Blog</a></li>
+				        </ul>
+		        	</div>
+		        </div>
+	       	</header>
+
+	       	<div class="container">
+	       	</div>
+
+	       	<article id="about">
+	       		<script type="text/template">
+				
+	       		<div class="container">
+
+					<div class="page-title">
+						<%= about.getStructuredText('article.title') ? about.getStructuredText('article.title').asHtml(ctx) : '' %>
+						<%= about.getStructuredText('article.lede') ? about.getStructuredText('article.lede').asHtml(ctx) : '' %>
+					</div>
+
+					<div class="row">
+						<% staff.forEach(function (staffMember) { %>
+
+							<div class="col-md-3 staff clearfix" id="<%= staffMember.id %>">
+								<p class="photo">
+									<span class="picture" data-picture>
+									    <img src="<%= staffMember.getImage('author.photo') && staffMember.getImage('author.photo').views.large ? staffMember.getImage('author.photo').views.large.url : '' %>">
+									</span>
+								</p>
+								<h3><%= staffMember.getStructuredText('author.fullname') ? staffMember.getStructuredText('author.fullname').getTitle().text : '' %></h3>
+								<p class="title"><%= staffMember.getText('author.title') ? staffMember.getText('author.title') : '' %>
+								<p><%= staffMember.getStructuredText('author.description') ? staffMember.getStructuredText('author.description').asHtml() : '' %></p>
+							</div>
+
+						<% }); %>
+					</div>
+
+				</div>
+
+	    		</script>
+	       	</article>
+
+	       	<div class="footer-container">
+	       		<footer class="container">
+	       			<p>
+	       				WorldChanger is an example website to be used freely on top of the 
+	       				<a href="http://prismic.io">prismic.io</a>
+	       				writing-room and content query API.
+	       			</p>
+	       			<p>
+	       				<a href="/signin">Sign in to preview changes</a>
+	       			</p>
+	       		</footer>
+	       	</div>
+		
+	    </div>
+	</body>
+
+</html>
+
+			
+
+ 
+
+
+
+
+
+
+
+
+				
