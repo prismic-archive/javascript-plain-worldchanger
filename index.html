@@ -10,10 +10,9 @@
 
         <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
         <script src="assets/javascripts/vendor/prismic.io.js"></script>
-        <script src="assets/javascripts/app.js"></script>
-        <script src="assets/javascripts/bootstrap.min.js"></script>
-        <!--<script src="assets/javascripts/all.js"></script>
-        <script src="assets/javascripts/home.js"></script>-->
+        <script src="assets/javascripts/common.js"></script>
+        <script src="assets/javascripts/home.js"></script>
+        <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
 
 	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
 	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
@@ -23,7 +22,7 @@
 
     <body>
     	<div class="wrapper">
-			<div id="qwerty"></div>
+			
 		    <header class="navbar navbar-worldchanger" role="navigation">
 		        <div class="container">
 
@@ -58,8 +57,8 @@
 				
 	       		<div class="container">
 				    <div class="page-title">
-				      	<h1> <%= home.getStructuredText("homepage.headline") ? home.getStructuredText("homepage.headline").getTitle().text : '' %> </h1>
-				      	<p> <%= home.getStructuredText("homepage.description") ? home.getStructuredText("homepage.description").getFirstParagraph().text : '' %> </p>
+				      	<h1> <%= home.getStructuredText("homepage.headline") ? home.getStructuredText("homepage.headline").asHtml(ctx) : '' %> </h1>
+				      	<p> <%= home.getStructuredText("homepage.description") ? home.getStructuredText("homepage.description").asHtml(ctx) : '' %> </p>
 				      	<p class="cta_homelink">
 				      		<% if (!!home.getText("homepage.cta_label")) { %>
 					      		<a href="/tour.html" role="button">
@@ -74,129 +73,104 @@
 					<div id="main-image">
 				      	<style type="text/css">
 	        				@media (min-width: 993px) {
-	        					#main-image { background-image: url(<%= home.getImage("homepage.main_image").views.large.url %>) }
+	        					#main-image { background-image: url(<%= home.getImageView("homepage.main_image","large").url %>) }
 	        				}
 					        @media (max-width: 992px) and (min-width: 768px) {
-					        	#main-image { background-image: url(<%= home.getImage("homepage.main_image").views.medium.url %>) }
+					        	#main-image { background-image: url(<%= home.getImageView("homepage.main_image","medium").url %>) }
 					        }
 					        @media (max-width: 767px) {
-					        	#main-image { background-image: url(<%= home.getImage("homepage.main_image").views.small.url %>) }
+					        	#main-image { background-image: url(<%= home.getImageView("homepage.main_image","small").url %>) }
 					        }
 				        </style>
 				    </div>
 				<% }; %>
 
 				<div class="container section-title">
-				    <h2> <%= home.getStructuredText("homepage.title_user_friendly").getTitle().text %> </h2>
-					<p> <%= home.getStructuredText("homepage.title_user_friendly").getFirstParagraph().text %> </p>
+				    <%= home.getStructuredText("homepage.title_user_friendly").asHtml() %>
 				</div>
 
 				<div class="container redline"><span></span></div>
 
 			  	<div class="container">
 			    	<div class="row arguments-row">
-			        	<div class="col-md-4 arguments-col">
-			          		<div class="argument" style="background: url(<%= friendlyArgs[0].getImage('argument.icon').main.url %>) no-repeat">
-			            		<h3> <%= friendlyArgs[0].getStructuredText("argument.catcher_title").getTitle().text %> </h3>
-			            		<p> <%= friendlyArgs[0].getStructuredText("argument.catcher_description").getFirstParagraph().text %> </p>
-			          		</div>
-			        	</div>
-			        	<div class="col-md-4 arguments-col">
-			          		<div class="argument" style="background: url(<%= friendlyArgs[1].getImage('argument.icon').main.url %>) no-repeat">
-			            		<h3> <%= friendlyArgs[1].getStructuredText("argument.catcher_title").getTitle().text %> </h3>
-			            		<p> <%= friendlyArgs[1].getStructuredText("argument.catcher_description").getFirstParagraph().text %> </p>
-			          		</div>
-			        	</div>
-			        	<div class="col-md-4 arguments-col">
-			          		<div class="argument" style="background: url(<%= friendlyArgs[2].getImage('argument.icon').main.url %>) no-repeat">
-			            		<h3> <%= friendlyArgs[2].getStructuredText("argument.catcher_title").getTitle().text %> </h3>
-			            		<p> <%= friendlyArgs[2].getStructuredText("argument.catcher_description").getFirstParagraph().text %> </p>
-			          		</div>
-			        	</div>
+
+			    		<% friendlyArgs.forEach(function (arg) { %>
+				        	<div class="col-md-4 arguments-col">
+					          	<div class="argument" style="background: url('<%= arg.getImage('argument.icon') && arg.getImageView('argument.icon','small') ? arg.getImageView('argument.icon','small').url : '' %>') no-repeat">
+						            <h3><%= arg.getStructuredText('argument.catcher_title') ? arg.getStructuredText('argument.catcher_title').getTitle().text : '' %></h3>
+						            <%= arg.getStructuredText('argument.catcher_description') ? arg.getStructuredText('argument.catcher_description').asHtml() : '' %>
+					          </div>
+					        </div>
+				        <% }); %>
+	
 			    	</div>
 			  	</div>
 
 				<div class="container section-title">
-				    <h2> <%= home.getStructuredText("homepage.title_design").getTitle().text %> </h2>
-					<p> <%= home.getStructuredText("homepage.title_design").getFirstParagraph().text %> </p>
+				    <%= home.getStructuredText("homepage.title_design") ? home.getStructuredText("homepage.title_design").asHtml(ctx) : '' %>
 			  	</div>
 				  
 			  	<div class="container redline"><span></span></div>
 
 				<div class="container">
 				    <div class="row arguments-row">
-				        <div class="col-md-4 arguments-col">
-				          	<div class="argument" style="background: url(<%= designArgs[0].getImage('argument.icon').main.url %>) no-repeat">
-				            	<h3> <%= designArgs[0].getStructuredText("argument.catcher_title").getTitle().text %> </h3>
-				            	<p> <%= designArgs[0].getStructuredText("argument.catcher_description").getFirstParagraph().text %> </p>
-				          	</div>
-				        </div>
-				        <div class="col-md-4 arguments-col">
-				          	<div class="argument" style="background: url(<%= designArgs[1].getImage('argument.icon').main.url %>) no-repeat">
-				            	<h3> <%= designArgs[1].getStructuredText("argument.catcher_title").getTitle().text %> </h3>
-				            	<p> <%= designArgs[1].getStructuredText("argument.catcher_description").getFirstParagraph().text %> </p>
-				          	</div>
-				        </div>
-				        <div class="col-md-4 arguments-col">
-				          	<div class="argument" style="background: url(<%= designArgs[2].getImage('argument.icon').main.url %>) no-repeat">
-				            	<h3> <%= designArgs[2].getStructuredText("argument.catcher_title").getTitle().text %> </h3>
-				            	<p> <%= designArgs[2].getStructuredText("argument.catcher_description").getFirstParagraph().text %> </p>
-				          	</div>
-				        </div>
+
+				    	<% designArgs.forEach(function (arg) { %>
+				        	<div class="col-md-4 arguments-col">
+					          	<div class="argument" style="background: url('<%= arg.getImage('argument.icon') && arg.getImageView('argument.icon','small') ? arg.getImageView('argument.icon','small').url : '' %>') no-repeat">
+						            <h3><%= arg.getStructuredText('argument.catcher_title') ? arg.getStructuredText('argument.catcher_title').getTitle().text : '' %></h3>
+						            <%= arg.getStructuredText('argument.catcher_description') ? arg.getStructuredText('argument.catcher_description').asHtml() : '' %>
+					          	</div>
+					        </div>
+				        <% }); %>
+				        
 				    </div>
 				</div>
 
 
 				<div class="container" id="pricewell">
-					<p>
-						<%= home.getText("homepage.pricing_label") %>
-						<strong> $<%= minPrice %>/mo </strong>
-					</p>
+					<p> <%= home.getText("homepage.pricing_label") ? home.getText("homepage.pricing_label") : '' %> <strong> $<%= minPrice %>/mo </strong> </p>
 					<p><a class="btn btn-pricing" href="/pricing.html" role="button">
-						<%= home.getText("homepage.pricing_button_label") %> </a></p>
+						<%= home.getText("homepage.pricing_button_label") ? home.getText("homepage.pricing_button_label") : '' %> </a></p>
 				</div>
 
 				<style type="text/css">
 	                #pricewell {
-	                	background-image: url(<%= home.getImage("homepage.pricing_image").views.small.url %>)
+	                	background-image: url(<%= home.getImage("homepage.pricing_image") && home.getImageView("homepage.pricing_image","small") ? home.getImageView("homepage.pricing_image","small").url : '' %>)
 	                }
 	                @media (max-width: 767px) {
 	                	#pricewell {
-	                		background-image: url(<%= home.getImage("homepage.pricing_image").views.icon.url %>)
+	                		background-image: url(<%= home.getImage("homepage.pricing_image") && home.getImageView("homepage.pricing_image","icon") ? home.getImageView("homepage.pricing_image","icon").url : '' %>)
 	                	}
 	                }
         		</style>
 
-
 				<div class="container">
-        			<h2> <%= home.getStructuredText("homepage.title_faq").getTitle().text %> </h2>
+        			<%= home.getStructuredText("homepage.title_faq") ? home.getStructuredText("homepage.title_faq").asHtml(ctx) : '' %>
 
                 	<div class="panel-group" id="accordion">
-        				<div class="panel">
+						<% questions.forEach(function (question) { %>
+							<div class="panel">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#<%= question.id %>" class="collapsed">
+											<%= question.getStructuredText('faq.question') ? question.getStructuredText('faq.question').getTitle().text : '' %>
+											<span class="accordion-arrow down">&#9660;</span><span class="accordion-arrow up">&#9650;</span>
+										</a>
+									</h4>
+								</div>
+								<div id="<%= question.id %>" class="panel-collapse collapse">
+									<div class="panel-body">
+										<%= question.getStructuredText('faq.answer') ? question.getStructuredText('faq.answer').asHtml(ctx) : '' %>
+									</div>
+								</div>
 
-							<% for (var i = 0; i < questions.length; i++) { %>
-
-	                			<div class="panel-heading">
-	                        		<h4 class="panel-title">
-	                        			<a data-toggle="collapse" data-parent="#accordion" href="#<%= questions[i].id %>" class="collapsed">
-	                        				 <%= questions[i].getStructuredText("faq.question").getTitle().text %> 
-	                        				<span class="accordion-arrow down">&#9660;</span><span class="accordion-arrow up">&#9650;</span>
-	                        			</a>
-	                        		</h4>
-	                			</div>
-	                			<div id="<%= questions[i].id %>" class="panel-collapse collapse" style="height: 0px;">
-		                        		<div class="panel-body">
-		                        			<%= questions[i].getStructuredText("faq.answer").asHtml(ctx) %>
-		                        		</div>
-	                			</div>
-
-							<% }; %>
-
-                		</div>
-                	</div>
+							</div>
+						<% });  %>
+					</div>
                 </div>
 
-	    </script>
+	    		</script>
 	       	</article>
 
 	       	<div class="footer-container">
