@@ -120,7 +120,7 @@ $(function(){
                             getMinPrice(function(err5, minPrice) {
                                 var source = $('body').find('script[type="text/template"]').html();
                                 var template = source ? tmpl(source) : undefined;
-                                
+                              
                                 infos = {
                                     friendlyArgs: friendlyArgs,
                                     designArgs: designArgs,
@@ -329,25 +329,7 @@ $(function(){
 }( jQuery ));
 
 
-// initialisation de l'ordre d'affichage des documents
-                /*var list = new Array(args.length),
-                    cpt = 0;
-                args.forEach(function (doc, i) {
-                    if (doc.getImage("argument.photo")) {
-                        list[0] = doc;
-                    }
-                    else {
-                        if (doc.getImage("argument.panoramaphoto")) {
-                            list[3] = doc;
-                        }
-                        else {
-                            if (cpt != 0 && cpt != 3) {
-                                list[cpt] = doc;
-                            }
-                        }
-                    }
-                    cpt++;
-                });*/
+
 
 /*$('h1').click(function() {
         $(this).css('color','green');

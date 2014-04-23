@@ -10,11 +10,12 @@
 
         <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
         <script src="assets/javascripts/vendor/prismic.io.js"></script>
-        <script src="assets/javascripts/app.js"></script>
-        <script src="assets/javascripts/bootstrap.min.js"></script>
+        <script src="assets/javascripts/common.js"></script>
+        <script src="assets/javascripts/blog.js"></script>
+        <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
 
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
 	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
 	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
 
     </head>
@@ -67,12 +68,12 @@
 					<% if (documents.length == 0) { %>
 						<div class="empty">
 							<h3>No document matches your search. Search again?</h3>
-							<% /*= render partial: "blogsearch"*/ %>
 						</div>
 					<% }; %>
 
 					<% documents.forEach(function (doc) { %>
-						<a href="<%= linkResolver(ctx, doc) %>" class="row blog-post">
+						<% console.log(ctx.linkResolver(ctx, doc)); %>
+						<a href="/index.html" class="row blog-post">
 							<div class="col-md-3 image">
 								<p>
 									<%= doc.getImage('blog.image') && doc.getImage('blog.image').views.medium ? doc.getImage('blog.image').views.medium.asHtml(ctx) : '' %>
@@ -80,15 +81,15 @@
 							</div>
 							<div class="col-md-9 preview">
 								<h2>
-									<%= doc.getStructuredText('blog.body').getTitle() %>
+									<%= doc.getStructuredText('blog.body').getTitle().text %>
 								</h2>
 								<p class="date">
-									On <%= doc.getDate('blog.date') ? doc.getDate('blog.date')/*.strftime("%b %-d %Y")*/ : '' %>
+									On <%= doc.getDate('blog.date') ? doc.getDate('blog.date').value : '' %>
 								</p>
 								<%= doc.getStructuredText('blog.shortlede') ? doc.getStructuredText('blog.shortlede').asHtml(ctx) : '' %>
 							</div>
 						</a>
-					<% }; %>
+					<% }); %>
 
 				</div>
 
