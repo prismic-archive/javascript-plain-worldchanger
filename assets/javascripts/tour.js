@@ -26,19 +26,20 @@ $(function(){
                 getArgs(ctx, function(err3, args) {
                     getMinPrice(ctx, function(err4, minPrice) {
 
-                        var source = $('body').find('script[type="text/template"]').html();
-                        var template = source ? tmpl(source) : undefined;
-                        
                         var infos = {
                             home: home,
                             tour: tour,
                             args: args,
                             minPrice: minPrice,
-                            ctx: ctx
+                            ctx: ctx,
+                            page: 'tour'
                         }
-                        if(template) {
-                            $('#tour').html(template(infos));
-                        }
+
+                        Common.insertTmpl('#tour',infos);
+                        Common.insertTmplFromFile('#minimumplans',infos,'layout/minimumplans.tpl');
+                        Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
+                        Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
+
                     });
                 });
             });

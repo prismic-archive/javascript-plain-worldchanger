@@ -42,7 +42,28 @@ window.Common = {
             .submit(function (err, docs) {
                 callback(err, docs.results[0])
             });
+    },
+
+    insertTmpl: function(place, ctx) {
+        var source = $(place).find('script[type="text/template"]').html();
+        var template = source ? tmpl(source) : undefined;
+        if(template) {
+            $(place).html(template(ctx));
+        }
+    },
+
+    insertTmplFromFile: function(place, ctx, file) {
+        $.get(file,function (data) {
+            $(place).html(data);
+            var source = $(place).find('script[type="text/template"]').html();
+            var template = source ? tmpl(source) : undefined;
+        
+            if(template) {
+                $(place).html(template(ctx));
+            }
+        });
     }
+
 };
 
 (function() {

@@ -47,21 +47,25 @@ $(function(){
                 getDesignArgs(ctx, function(err3, designArgs) {
                     getQuestions(ctx, function(err4, questions) {
                         getMinPrice(ctx, function(err5, minPrice) {
-                            var source = $('body').find('script[type="text/template"]').html();
-                            var template = source ? tmpl(source) : undefined;
-                            
+
                             var infos = {
                                 friendlyArgs: friendlyArgs,
                                 designArgs: designArgs,
                                 questions: questions,
                                 home: home,
                                 minPrice: minPrice,
-                                ctx: ctx
+                                ctx: ctx,
+                                page: 'home'
                             }
 
-                            if(template) {
-                                $('#homepage').html(template(infos));
-                            }
+                            Common.insertTmpl('#homepage',infos);
+
+                            Common.insertTmplFromFile('#minimumplans',infos,'layout/minimumplans.tpl');
+                            Common.insertTmplFromFile('#faqaccordion',infos,'layout/faqaccordion.tpl');
+
+                            Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
+                            Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
+
                         });
                     });
                 });

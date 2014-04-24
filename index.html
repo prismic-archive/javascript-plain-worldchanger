@@ -22,35 +22,8 @@
 
     <body>
     	<div class="wrapper">
-			
-		    <header class="navbar navbar-worldchanger" role="navigation">
-		        <div class="container">
 
-		        	<div class="navbar-header">
-		        		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
-		        			<span class="sr-only">Toggle navigation</span>
-		        			<span class="icon-bar"></span>
-		        			<span class="icon-bar"></span>
-		        			<span class="icon-bar"></span>
-	        			</button>
-        				<a class="navbar-brand" href="/">WorldChanger</a>
-	        		</div>
-
-	        		<div class="navbar-collapse collapse" id="top-navbar">
-		        		<ul class="nav navbar-nav navbar-right">
-				          	<li class="active"><a href="/">Home</a></li>
-				          	<li><a href="/tour.html">Product tour</a></li>
-				          	<li><a href="/pricing.html">Pricing</a></li>
-				          	<li><a href="/faq.html">FAQ</a></li>
-				          	<li><a href="/about.html">About us</a></li>
-				          	<li><a href="/blog.html">Blog</a></li>
-				        </ul>
-		        	</div>
-		        </div>
-	       	</header>
-
-	       	<div class="container">
-	       	</div>
+    		<div id="menu"></div>
 
 	       	<article id="homepage">
 	       		<script type="text/template">
@@ -127,65 +100,20 @@
 				    </div>
 				</div>
 
-
-				<div class="container" id="pricewell">
-					<p> <%= home.getText("homepage.pricing_label") ? home.getText("homepage.pricing_label") : '' %> <strong> $<%= minPrice %>/mo </strong> </p>
-					<p><a class="btn btn-pricing" href="/pricing.html" role="button">
-						<%= home.getText("homepage.pricing_button_label") ? home.getText("homepage.pricing_button_label") : '' %> </a></p>
-				</div>
-
-				<style type="text/css">
-	                #pricewell {
-	                	background-image: url(<%= home.getImage("homepage.pricing_image") && home.getImageView("homepage.pricing_image","small") ? home.getImageView("homepage.pricing_image","small").url : '' %>)
-	                }
-	                @media (max-width: 767px) {
-	                	#pricewell {
-	                		background-image: url(<%= home.getImage("homepage.pricing_image") && home.getImageView("homepage.pricing_image","icon") ? home.getImageView("homepage.pricing_image","icon").url : '' %>)
-	                	}
-	                }
-        		</style>
+				<div id="minimumplans"></div>
 
 				<div class="container">
         			<%= home.getStructuredText("homepage.title_faq") ? home.getStructuredText("homepage.title_faq").asHtml(ctx) : '' %>
 
-                	<div class="panel-group" id="accordion">
-						<% questions.forEach(function (question) { %>
-							<div class="panel">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#<%= question.id %>" class="collapsed">
-											<%= question.getStructuredText('faq.question') ? question.getStructuredText('faq.question').getTitle().text : '' %>
-											<span class="accordion-arrow down">&#9660;</span><span class="accordion-arrow up">&#9650;</span>
-										</a>
-									</h4>
-								</div>
-								<div id="<%= question.id %>" class="panel-collapse collapse">
-									<div class="panel-body">
-										<%= question.getStructuredText('faq.answer') ? question.getStructuredText('faq.answer').asHtml(ctx) : '' %>
-									</div>
-								</div>
+                	<div id="faqaccordion"></div>
 
-							</div>
-						<% });  %>
-					</div>
                 </div>
 
 	    		</script>
 	       	</article>
 
-	       	<div class="footer-container">
-	       		<footer class="container">
-	       			<p>
-	       				WorldChanger is an example website to be used freely on top of the 
-	       				<a href="http://prismic.io">prismic.io</a>
-	       				writing-room and content query API.
-	       			</p>
-	       			<p>
-	       				<a href="/signin">Sign in to preview changes</a>
-	       			</p>
-	       		</footer>
-	       	</div>
-		
+	       	<div id="footer"></div>
+
 	    </div>
 	</body>
 

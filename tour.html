@@ -23,34 +23,7 @@
     <body>
     	<div class="wrapper">
 
-		    <header class="navbar navbar-worldchanger" role="navigation">
-		        <div class="container">
-
-		        	<div class="navbar-header">
-		        		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
-		        			<span class="sr-only">Toggle navigation</span>
-		        			<span class="icon-bar"></span>
-		        			<span class="icon-bar"></span>
-		        			<span class="icon-bar"></span>
-	        			</button>
-        				<a class="navbar-brand" href="/">WorldChanger</a>
-	        		</div>
-
-	        		<div class="navbar-collapse collapse" id="top-navbar">
-		        		<ul class="nav navbar-nav navbar-right">
-				          	<li><a href="/">Home</a></li>
-				          	<li class="active"><a href="/tour.html">Product tour</a></li>
-				          	<li><a href="/pricing.html">Pricing</a></li>
-				          	<li><a href="/faq.html">FAQ</a></li>
-				          	<li><a href="/about.html">About us</a></li>
-				          	<li><a href="/blog.html">Blog</a></li>
-				        </ul>
-		        	</div>
-		        </div>
-	       	</header>
-
-	       	<div class="container">
-	       	</div>
+    		<div id="menu"></div>
 
 			<article id="tour">
 				<script type="text/template">
@@ -172,43 +145,12 @@
 <% /* *********************************************************************************************************************** */ %>
 				<% /* bas de page avec le prix minimum */ %>
 
-				<div class="container" id="pricewell">
-					<p>
-						<%= home.getText("homepage.pricing_label") %>
-						<strong> $<%= minPrice %>/mo </strong>
-					</p>
-					<p><a class="btn btn-pricing" href="/pricing.html" role="button">
-						<%= home.getText("homepage.pricing_button_label") %> </a></p>
-				</div>
-
-				<style type="text/css">
-	                #pricewell {
-	                	background-image: url(<%= home.getImage("homepage.pricing_image").views.small.url %>)
-	                }
-	                @media (max-width: 767px) {
-	                	#pricewell {
-	                		background-image: url(<%= home.getImage("homepage.pricing_image").views.icon.url %>)
-	                	}
-	                }
-        		</style>
+				<div id="minimumplans"></div>
 
 				</script>
 			</article>
 
-			<!-- footer -->
-
-	       	<div class="footer-container">
-	       		<footer class="container">
-	       			<p>
-	       				WorldChanger is an example website to be used freely on top of the 
-	       				<a href="http://prismic.io">prismic.io</a>
-	       				writing-room and content query API.
-	       			</p>
-	       			<p>
-	       				<a href="/signin">Sign in to preview changes</a>
-	       			</p>
-	       		</footer>
-	       	</div>
+			<div id="footer"></div>     	
 
 	    </div>
 	</body>
