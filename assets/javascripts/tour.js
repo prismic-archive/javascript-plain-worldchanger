@@ -1,11 +1,9 @@
 $(function(){
 
-    function getImageDoc(docs, frag, callback) {
-        docs.forEach(function (doc, i) {
-            if(doc.getImage(frag)) {
-                callback(doc, i);
-            }
-        });
+    function getImageDoc(docs, frag) {
+        return docs.filter(function (doc) {
+            return !!doc.getImage(frag);
+        })[0];
     }
 
     function getArgs(ctx, callback) {
@@ -13,14 +11,12 @@ $(function(){
             .orderings("[my.argument.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, documents) {
-                var docs = documents.results;
-                getImageDoc(docs, 'argument.photo', function(photo, ip) {
-                    getImageDoc(docs, 'argument.panoramaphoto', function(panoramaphoto, ipp) {
-                        docs.splice(ip, 1);
-                        docs.splice(ipp - 1, 1);
-                        callback(err, docs, photo, panoramaphoto);
-                    });
+                var photo = getImageDoc(documents.results, 'argument.photo');
+                var panoramaPhoto = getImageDoc(documents.results, 'argument.panoramaphoto');
+                var docs = documents.results.filter(function (doc) {
+                    return doc.id != photo.id && doc.id != panoramaPhoto.id;
                 });
+                callback(err, docs, photo, panoramaPhoto);
             });
     }
 

@@ -18,23 +18,26 @@ window.Common = {
                 ref: api.data.master.ref,
                 api: api,
 
-                linkResolver: function(ctx, documentLink) {
-                    if(documentLink.isBroken) return;
+                linkResolver: function(ctx, doc) {
+                    if(doc.isBroken) return;
 
-                    if(documentLink.id == ctx.api.bookmarks['about']) {
+                    if(doc.id == ctx.api.bookmarks['about']) {
                         return '/about.html';
                     }
-                    if(documentLink.id == ctx.api.bookmarks['faq']) {
+                    if(doc.id == ctx.api.bookmarks['faq']) {
                         return '/faq.html';
                     }
-                    if(documentLink.id == ctx.api.bookmarks['homepage']) {
+                    if(doc.id == ctx.api.bookmarks['homepage']) {
                         return '/homepage.html';
                     }
-                    if(documentLink.id == ctx.api.bookmarks['pricing']) {
+                    if(doc.id == ctx.api.bookmarks['pricing']) {
                         return '/pricing.html';
                     }
-                    if(documentLink.id == ctx.api.bookmarks['tour']) {
+                    if(doc.id == ctx.api.bookmarks['tour']) {
                         return '/tour.html';
+                    }
+                    if(doc.type == 'blog') {
+                        return '/blogpost.html?id='+ doc.id +'&slug='+ doc.slug +'';
                     }
                 }
             };

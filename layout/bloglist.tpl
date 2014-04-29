@@ -7,7 +7,7 @@
             </div>
         <% }; %>
         <% documents.forEach(function (doc) { %>
-            <a href="blogpost.html?id=<%= doc.id %>&slug=<%= doc.slug %>" class="row blog-post">
+            <a href=<%= ctx.linkResolver(ctx, doc) %> class="row blog-post">
                 <div class="col-md-3 image">
                     <p>
                         <%= doc.getImage('blog.image') && doc.getImage('blog.image').views.medium ? doc.getImage('blog.image').views.medium.asHtml(ctx) : '' %>
