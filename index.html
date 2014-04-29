@@ -1,132 +1,91 @@
 <!DOCTYPE html>
-
 <html>
-
-    <head>
-    	<title>WorldChanger - Change your world now!</title>
-
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-		<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
-
-        <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
-        <script src="assets/javascripts/vendor/prismic.io.js"></script>
-        <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
-        <script src="assets/javascripts/common.js"></script>
-        <script src="assets/javascripts/home.js"></script>
-
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
-    </head>
-
-    <body>
-    	<div class="wrapper">
-
-    		<div id="menu"></div>
-
-	       	<article id="homepage">
-	       		<script type="text/template">
-				
-	       		<div class="container">
-				    <div class="page-title">
-				      	<h1> <%= home.getStructuredText("homepage.headline") ? home.getStructuredText("homepage.headline").asHtml(ctx) : '' %> </h1>
-				      	<p> <%= home.getStructuredText("homepage.description") ? home.getStructuredText("homepage.description").asHtml(ctx) : '' %> </p>
-				      	<p class="cta_homelink">
-				      		<% if (!!home.getText("homepage.cta_label")) { %>
-					      		<a href="/tour.html" role="button">
-					      			<%= home.getText("homepage.cta_label") %>
-					      		</a>
-					      	<% }; %>
-			      		</p>
-				    </div>
-			  	</div>
-
-			  	<% if (home.getImage('homepage.main_image')) { %>
-					<div id="main-image">
-				      	<style type="text/css">
-	        				@media (min-width: 993px) {
-	        					#main-image { background-image: url(<%= home.getImageView("homepage.main_image","large").url %>) }
-	        				}
-					        @media (max-width: 992px) and (min-width: 768px) {
-					        	#main-image { background-image: url(<%= home.getImageView("homepage.main_image","medium").url %>) }
-					        }
-					        @media (max-width: 767px) {
-					        	#main-image { background-image: url(<%= home.getImageView("homepage.main_image","small").url %>) }
-					        }
-				        </style>
-				    </div>
-				<% }; %>
-
-				<div class="container section-title">
-				    <%= home.getStructuredText("homepage.title_user_friendly").asHtml() %>
-				</div>
-
-				<div class="container redline"><span></span></div>
-
-			  	<div class="container">
-			    	<div class="row arguments-row">
-
-			    		<% friendlyArgs.forEach(function (arg) { %>
-				        	<div class="col-md-4 arguments-col">
-					          	<div class="argument" style="background: url('<%= arg.getImage('argument.icon') && arg.getImageView('argument.icon','small') ? arg.getImageView('argument.icon','small').url : '' %>') no-repeat">
-						            <h3><%= arg.getStructuredText('argument.catcher_title') ? arg.getStructuredText('argument.catcher_title').getTitle().text : '' %></h3>
-						            <%= arg.getStructuredText('argument.catcher_description') ? arg.getStructuredText('argument.catcher_description').asHtml() : '' %>
-					          </div>
-					        </div>
-				        <% }); %>
-	
-			    	</div>
-			  	</div>
-
-				<div class="container section-title">
-				    <%= home.getStructuredText("homepage.title_design") ? home.getStructuredText("homepage.title_design").asHtml(ctx) : '' %>
-			  	</div>
-				  
-			  	<div class="container redline"><span></span></div>
-
-				<div class="container">
-				    <div class="row arguments-row">
-
-				    	<% designArgs.forEach(function (arg) { %>
-				        	<div class="col-md-4 arguments-col">
-					          	<div class="argument" style="background: url('<%= arg.getImage('argument.icon') && arg.getImageView('argument.icon','small') ? arg.getImageView('argument.icon','small').url : '' %>') no-repeat">
-						            <h3><%= arg.getStructuredText('argument.catcher_title') ? arg.getStructuredText('argument.catcher_title').getTitle().text : '' %></h3>
-						            <%= arg.getStructuredText('argument.catcher_description') ? arg.getStructuredText('argument.catcher_description').asHtml() : '' %>
-					          	</div>
-					        </div>
-				        <% }); %>
-				        
-				    </div>
-				</div>
-
-				<div id="minimumplans"></div>
-
-				<div class="container">
-        			<%= home.getStructuredText("homepage.title_faq") ? home.getStructuredText("homepage.title_faq").asHtml(ctx) : '' %>
-
-                	<div id="faqaccordion"></div>
-
+  <head>
+    <title>WorldChanger - Change your world now!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+    <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
+    <script src="assets/javascripts/vendor/prismic.io.js"></script>
+    <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="assets/javascripts/common.js"></script>
+    <script src="assets/javascripts/home.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="menu"></div>
+      <article id="homepage">
+        <script type="text/template">
+          <div class="container">
+            <div class="page-title">
+              <h1> <%= home.getStructuredText("homepage.headline") ? home.getStructuredText("homepage.headline").asHtml(ctx) : '' %> </h1>
+              <p> <%= home.getStructuredText("homepage.description") ? home.getStructuredText("homepage.description").asHtml(ctx) : '' %> </p>
+              <p class="cta_homelink">
+                <% if (!!home.getText("homepage.cta_label")) { %>
+                <a href="/tour.html" role="button">
+                  <%= home.getText("homepage.cta_label") %>
+                </a>
+                <% }; %>
+              </p>
+            </div>
+          </div>
+          <% if (home.getImage('homepage.main_image')) { %>
+          <div id="main-image">
+            <style type="text/css">
+              @media (min-width: 993px) {
+              #main-image { background-image: url(<%= home.getImageView("homepage.main_image","large").url %>) }
+              }
+              @media (max-width: 992px) and (min-width: 768px) {
+              #main-image { background-image: url(<%= home.getImageView("homepage.main_image","medium").url %>) }
+              }
+              @media (max-width: 767px) {
+              #main-image { background-image: url(<%= home.getImageView("homepage.main_image","small").url %>) }
+              }
+            </style>
+          </div>
+          <% }; %>
+          <div class="container section-title">
+            <%= home.getStructuredText("homepage.title_user_friendly").asHtml() %>
+          </div>
+          <div class="container redline"><span></span></div>
+          <div class="container">
+            <div class="row arguments-row">
+              <% friendlyArgs.forEach(function (arg) { %>
+              <div class="col-md-4 arguments-col">
+                <div class="argument" style="background: url('<%= arg.getImage('argument.icon') && arg.getImageView('argument.icon','small') ? arg.getImageView('argument.icon','small').url : '' %>') no-repeat">
+                  <h3><%= arg.getStructuredText('argument.catcher_title') ? arg.getStructuredText('argument.catcher_title').getTitle().text : '' %></h3>
+                  <%= arg.getStructuredText('argument.catcher_description') ? arg.getStructuredText('argument.catcher_description').asHtml() : '' %>
                 </div>
-
-	    		</script>
-	       	</article>
-
-	       	<div id="footer"></div>
-
-	    </div>
-	</body>
-
+              </div>
+              <% }); %>
+            </div>
+          </div>
+          <div class="container section-title">
+            <%= home.getStructuredText("homepage.title_design") ? home.getStructuredText("homepage.title_design").asHtml(ctx) : '' %>
+          </div>
+          <div class="container redline"><span></span></div>
+          <div class="container">
+            <div class="row arguments-row">
+              <% designArgs.forEach(function (arg) { %>
+              <div class="col-md-4 arguments-col">
+                <div class="argument" style="background: url('<%= arg.getImage('argument.icon') && arg.getImageView('argument.icon','small') ? arg.getImageView('argument.icon','small').url : '' %>') no-repeat">
+                  <h3><%= arg.getStructuredText('argument.catcher_title') ? arg.getStructuredText('argument.catcher_title').getTitle().text : '' %></h3>
+                  <%= arg.getStructuredText('argument.catcher_description') ? arg.getStructuredText('argument.catcher_description').asHtml() : '' %>
+                </div>
+              </div>
+              <% }); %>
+            </div>
+          </div>
+          <div id="minimumplans"></div>
+          <div class="container">
+            <%= home.getStructuredText("homepage.title_faq") ? home.getStructuredText("homepage.title_faq").asHtml(ctx) : '' %>
+            <div id="faqaccordion"></div>
+          </div>
+        </script>
+      </article>
+      <div id="footer"></div>
+    </div>
+  </body>
 </html>
-
-			
-
- 
-
-
-
-
-
-
-
-
-				

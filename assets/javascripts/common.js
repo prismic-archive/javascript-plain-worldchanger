@@ -13,8 +13,7 @@ window.Common = {
     },
 
     getCtx: function() {
-        var dfd = new jQuery.Deferred();
-        this.getApi().then(function(api) {
+        return this.getApi().then(function(api) {
             var ctx = {
                 ref: api.data.master.ref,
                 api: api,
@@ -39,9 +38,8 @@ window.Common = {
                     }
                 }
             };
-            dfd.resolve(ctx);
+            return ctx;
         });
-        return dfd.promise();
     },
 
     getDocById: function(id, ctx) {
@@ -85,7 +83,7 @@ window.Common = {
             $(place).html(data);
             var source = $(place).find('script[type="text/template"]').html();
             var template = source ? tmpl(source) : undefined;
-        
+
             if(template) {
                 $(place).html(template(ctx));
             }
@@ -103,7 +101,6 @@ window.Common = {
         }
         return params;
     }
-
 };
 
 (function() {
@@ -126,10 +123,7 @@ window.Common = {
                     .split("%>").join("p.push('")
                     .split("\r").join("\\'")
           + "');}return p.join('');");
-       
+
         return data ? fn( data ) : fn;
     };
 })();
-
-
-

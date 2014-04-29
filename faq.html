@@ -1,62 +1,34 @@
 <!DOCTYPE html>
 
 <html>
-
-    <head>
-    	<title>WorldChanger - Change your world now!</title>
-
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-		<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
-
-        <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
-        <script src="assets/javascripts/vendor/prismic.io.js"></script>
-        <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
-        <script src="assets/javascripts/common.js"></script>
-        <script src="assets/javascripts/faq.js"></script>
-
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
-    </head>
-
-    <body>
-    	<div class="wrapper">
-			
-		    <div id="menu"></div>
-
-	       	<article id="faq">
-	       		<script type="text/template">
-				
-	       		<div class="container">
-
-					<div class="page-title">
-						<%= faq.getStructuredText('article.title') ? faq.getStructuredText('article.title').asHtml(ctx) : '' %>
-						<%= faq.getStructuredText('article.lede') ? faq.getStructuredText('article.lede').asHtml(ctx) : '' %>
-					</div>
-
-					<div id="faqaccordion"></div>
-
-				</div>
-
-	    		</script>
-	       	</article>
-
-	       	<div id="footer"></div>
-		
-	    </div>
-	</body>
-
+  <head>
+    <title>WorldChanger - Change your world now!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+    <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
+    <script src="assets/javascripts/vendor/prismic.io.js"></script>
+    <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="assets/javascripts/common.js"></script>
+    <script src="assets/javascripts/faq.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="menu"></div>
+      <article id="faq">
+        <script type="text/template">
+          <div class="container">
+            <div class="page-title">
+              <%= faq.getStructuredText('article.title') ? faq.getStructuredText('article.title').asHtml(ctx) : '' %>
+              <%= faq.getStructuredText('article.lede') ? faq.getStructuredText('article.lede').asHtml(ctx) : '' %>
+            </div>
+            <div id="faqaccordion"></div>
+          </div>
+        </script>
+      </article>
+      <div id="footer"></div>
+    </div>
+  </body>
 </html>
-
-			
-
- 
-
-
-
-
-
-
-
-
-				

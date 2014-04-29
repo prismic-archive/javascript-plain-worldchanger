@@ -5,30 +5,25 @@ $(function(){
             .orderings("[my.faq.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
     Common.getCtx().then(function(ctx) {
-
         Common.getBookmark('faq', ctx).then(function(faq) {
             getQuestions(ctx, function(err, questions) {
-
-                var infos = {
+                var data = {
                     faq: faq,
                     questions: questions,
                     ctx: ctx,
                     page: 'faq'
-                }
+                };
 
-                Common.insertTmpl('#faq',infos);
-                Common.insertTmplFromFile('#faqaccordion',infos,'layout/faqaccordion.tpl');
-                Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
-                Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
-
+                Common.insertTmpl('#faq',data);
+                Common.insertTmplFromFile('#faqaccordion',data,'layout/faqaccordion.tpl');
+                Common.insertTmplFromFile('#menu',data,'layout/menu.tpl');
+                Common.insertTmplFromFile('#footer',data,'layout/footer.tpl');
             });
         });
-
     });
-
 });
