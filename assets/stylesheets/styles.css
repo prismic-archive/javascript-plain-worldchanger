@@ -367,7 +367,7 @@ article#tour .large-dark-image .container {
 	padding: 85px 10% 65px;
 }
 article#tour .regular-panels {
-	background: repeat-y url('/assets/panels-background.png') center top;
+	background: repeat-y url('/assets/images/panels-background.png') center top;
 }
 article#tour .regular-panel {
 	text-align: center;

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+    	<title>WorldChanger - Change your world now!</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+
+        <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
+        <script src="assets/javascripts/vendor/prismic.io.js"></script>
+        <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+        <script src="assets/javascripts/vendor/moment.min.js"></script>
+        <script src="assets/javascripts/common.js"></script>
+        <script src="assets/javascripts/blogpost.js"></script>
+
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
+	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+    </head>
+
+    <body>
+    	<div class="wrapper">
+			
+		    <div id="menu"></div>
+
+	       	<div class="container">
+				<div id="blog-nav" class="row">
+					<div class="col-md-offset-9 col-md-3 blog-search">
+						<div id="blogsearch"></div>
+					</div
+				</div>
+			</div>
+
+	       	<article id="blogpost">
+	       		<script type="text/template">
+				
+				<div class="container">
+
+					<p class="image">
+						<img src="<%= post.getImage('blog.image') && post.getImageView('blog.image','large') ? post.getImageView('blog.image','large').url : '' %>" alt="">
+					</p>
+					
+					<div class="metainformation well">
+						<p class="authorimage">
+							<img src="<%= author.getImage('author.photo') && author.getImageView('author.photo','icon') ? author.getImageView('author.photo','icon').url : '' %>" alt="">
+						</p>
+						Published on <%= post.getDate('blog.date') ? moment(post.getDate('blog.date')).format("MMM D YYYY") : '' %>
+						<br>
+						by
+						<%= author.getStructuredText('author.fullname') ? author.getStructuredText('author.fullname').getTitle().text : '' %>,
+						<br>
+						<%= author.getText('author.title') ? author.getText('author.title') : '' %><%= author.getText('author.company') ? ", " + author.getText('author.company') : '' %>
+					</div>
+
+					<%= post.getStructuredText('blog.body').asHtml(ctx) %>
+
+					<% if (relatedposts) { %>
+						<h4>Some related posts from our blog</h4>
+						<ul id="relatedposts">
+							<% relatedposts.forEach(function (post) { %>
+								<li><a href="blogpost.html?id=<%= post.id %>&slug=<%= post.slug %>"><%= post.getStructuredText('blog.body').getTitle().text %></a></li>
+							<% }); %>
+						</ul>
+					<% } %>
+	       			
+	       			<% if (post.get('blog.allow_comments') && post.get('blog.allow_comments').value == "Yes") { %>
+	       				
+						<div id="disqus_thread"></div>
+					    	
+				    	<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+					    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+				    <% } %>
+
+	       		</div>
+
+	    		</script>
+	       	</article>
+
+	       	<div id="footer"></div>
+		
+	    </div>
+	</body>
+
+</html>
+
+			
+
+ 
+
+
+
+
+
+
+
+
+				

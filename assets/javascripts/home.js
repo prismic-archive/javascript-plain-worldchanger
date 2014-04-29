@@ -40,13 +40,13 @@ $(function(){
             });
     }
 
-    Common.getCtx(function(err, ctx){
+    Common.getCtx().then(function(ctx) {
 
-        Common.getDocById('homepage', ctx, function(err1, home) {
-            getFriendlyArgs(ctx, function(err2, friendlyArgs) {
-                getDesignArgs(ctx, function(err3, designArgs) {
-                    getQuestions(ctx, function(err4, questions) {
-                        getMinPrice(ctx, function(err5, minPrice) {
+        Common.getBookmark('homepage', ctx).then(function(home) {
+            getFriendlyArgs(ctx, function(err, friendlyArgs) {
+                getDesignArgs(ctx, function(err1, designArgs) {
+                    getQuestions(ctx, function(err2, questions) {
+                        getMinPrice(ctx, function(err3, minPrice) {
 
                             var infos = {
                                 friendlyArgs: friendlyArgs,
@@ -62,7 +62,6 @@ $(function(){
 
                             Common.insertTmplFromFile('#minimumplans',infos,'layout/minimumplans.tpl');
                             Common.insertTmplFromFile('#faqaccordion',infos,'layout/faqaccordion.tpl');
-
                             Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
                             Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
 

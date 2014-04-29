@@ -1,4 +1,5 @@
-<script type="text/template">	
+<script type="text/template">
+
 	<div class="footer-container">
 		<footer class="container">
 			<p>
@@ -11,4 +12,5 @@
 			</p>
 		</footer>
 	</div>
+	
 </script>

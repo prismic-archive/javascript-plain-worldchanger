@@ -19,11 +19,11 @@ $(function(){
             });
     }
 
-    Common.getCtx(function(err, ctx){
+    Common.getCtx().then(function(ctx) {
 
-        Common.getDocById('pricing', ctx, function(err1, pricing) {
-            getplans(ctx, function(err2, plans) {
-                getQuestions(ctx, function(err3, questions) {
+        Common.getBookmark('pricing', ctx).then(function(pricing) {
+            getplans(ctx, function(err, plans) {
+                getQuestions(ctx, function(err1, questions) {
 
                     var infos = {
                         pricing: pricing,
@@ -34,6 +34,7 @@ $(function(){
                     }
 
                     Common.insertTmpl('#pricing',infos);
+
                     Common.insertTmplFromFile('#faqaccordion',infos,'layout/faqaccordion.tpl');
                     Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
                     Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');

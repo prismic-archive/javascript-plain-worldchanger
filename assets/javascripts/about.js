@@ -9,10 +9,10 @@ $(function(){
             });
     }
 
-    Common.getCtx(function(err, ctx){
+    Common.getCtx().then(function(ctx) {
 
-        Common.getDocById('about', ctx, function(err1, about) {
-            getStaff(ctx, function(err2, staff) {
+        Common.getBookmark('about', ctx).then(function(about) {
+            getStaff(ctx, function(err, staff) {
                 
                 var infos = {
                     about: about,
@@ -22,6 +22,7 @@ $(function(){
                 }
                 
                 Common.insertTmpl('#about',infos);
+
                 Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
                 Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
 

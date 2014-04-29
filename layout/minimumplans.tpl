@@ -1,4 +1,5 @@
-<script type="text/template">	
+<script type="text/template">
+
 	<div class="container" id="pricewell">
 		<p> <%= home.getText("homepage.pricing_label") ? home.getText("homepage.pricing_label") : '' %> <strong> $<%= minPrice %>/mo </strong> </p>
 		<p><a class="btn btn-pricing" href="/pricing.html" role="button">
@@ -15,4 +16,5 @@
 	    	}
 	    }
 	</style>
+
 </script>

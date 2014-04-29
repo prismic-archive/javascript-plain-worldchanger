@@ -9,10 +9,10 @@ $(function(){
             });
     }
 
-    Common.getCtx(function(err, ctx){
+    Common.getCtx().then(function(ctx) {
 
-        Common.getDocById('faq', ctx, function(err1, faq) {
-            getQuestions(ctx, function(err2, questions) {
+        Common.getBookmark('faq', ctx).then(function(faq) {
+            getQuestions(ctx, function(err, questions) {
 
                 var infos = {
                     faq: faq,

@@ -1,7 +1,9 @@
-<script type="text/template">	
+<script type="text/template">
+
 	<div class="panel-group" id="accordion">
 		<% questions.forEach(function (question, i) { %>
 			<div class="panel">
+			
 				<div class="panel-heading">
 					<h4 class="panel-title">
 						<a data-toggle="collapse" data-parent="#accordion" href="#<%= question.id %>" class="collapsed">
@@ -19,4 +21,5 @@
 			</div>
 		<% });  %>
 	</div>
+
 </script>

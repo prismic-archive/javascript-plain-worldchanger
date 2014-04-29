@@ -1,18 +1,26 @@
 window.Common = {
-    getApi: function (callback) {
+
+    getApi: function () {
+        var dfd = new jQuery.Deferred();
         Prismic.Api('https://worldchanger1.prismic.io/api', function(err, api) {
-            callback(err, api);
+            if(err) {
+                dfd.reject(err);
+            } else {
+                dfd.resolve(api);
+            }
         });
+        return dfd.promise();
     },
 
-    getCtx: function(callback) {
-        this.getApi(function(err, api) {
+    getCtx: function() {
+        var dfd = new jQuery.Deferred();
+        this.getApi().then(function(api) {
             var ctx = {
                 ref: api.data.master.ref,
                 api: api,
 
                 linkResolver: function(ctx, documentLink) {
-                    if (documentLink.isBroken) return;
+                    if(documentLink.isBroken) return;
 
                     if(documentLink.id == ctx.api.bookmarks['about']) {
                       return '/about.html';
@@ -31,17 +39,37 @@ window.Common = {
                     }
                 }
             };
-            callback(err, ctx);
+            dfd.resolve(ctx);
+        });
+        return dfd.promise();
+    },
+
+    getDocById: function(id, ctx) {
+        var dfd = new jQuery.Deferred();
+        ctx.api.form("everything")
+            .query('[[:d = at(document.id, "'+ id +'")]]')
+            .ref(ctx.ref)
+            .submit(function (err, docs) {
+                if(err) {
+                    dfd.reject(err);
+                } else {
+                    dfd.resolve(docs.results[0]);
+                }
+            });
+        return dfd.promise();
+    },
+
+    getDocsById: function(ids, ctx) {
+        var promises = ids.map(function (id) {
+            return Common.getDocById(id, ctx);
+        });
+        return $.when.apply($, promises).then(function() {
+            return Array.prototype.slice.call(arguments);
         });
     },
 
-    getDocById: function(id, ctx, callback) {
-        ctx.api.form("everything")
-            .query('[[:d = at(document.id, "'+ ctx.api.bookmarks[id] +'")]]')
-            .ref(ctx.ref)
-            .submit(function (err, docs) {
-                callback(err, docs.results[0])
-            });
+    getBookmark: function(name, ctx) {
+        return this.getDocById(ctx.api.bookmarks[name], ctx);
     },
 
     insertTmpl: function(place, ctx) {
@@ -53,7 +81,7 @@ window.Common = {
     },
 
     insertTmplFromFile: function(place, ctx, file) {
-        $.get(file,function (data) {
+        return $.get(file,function (data) {
             $(place).html(data);
             var source = $(place).find('script[type="text/template"]').html();
             var template = source ? tmpl(source) : undefined;
@@ -62,6 +90,18 @@ window.Common = {
                 $(place).html(template(ctx));
             }
         });
+    },
+
+    parseQS: function(query) {
+        var params = {},
+            match,
+            pl = /\+/g,
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); };
+        while (match = search.exec(query)) {
+           params[decode(match[1])] = decode(match[2]);
+        }
+        return params;
     }
 
 };
