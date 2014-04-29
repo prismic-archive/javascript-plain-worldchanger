@@ -13,7 +13,6 @@ $(function(){
             .orderings("[my.argument.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, documents) {
-                
                 var docs = documents.results;
                 getImageDoc(docs, 'argument.photo', function(photo, ip) {
                     getImageDoc(docs, 'argument.panoramaphoto', function(panoramaphoto, ipp) {
@@ -22,7 +21,6 @@ $(function(){
                         callback(err, docs, photo, panoramaphoto);
                     });
                 });
-
             });
     }
 
@@ -32,18 +30,17 @@ $(function(){
             .orderings("[my.pricing.price]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results[0].getNumber('pricing.price'))
+                callback(err, docs.results[0].getNumber('pricing.price'));
             });
     }
 
     Common.getCtx().then(function(ctx) {
-
         Common.getBookmark('homepage', ctx).then(function(home) {
             Common.getBookmark('tour', ctx).then(function(tour) {
                 getArgs(ctx, function(err, args, argPhoto, argPanoramaphoto) {
                     getMinPrice(ctx, function(err1, minPrice) {
 
-                        var infos = {
+                        var data = {
                             home: home,
                             tour: tour,
                             args: args,
@@ -52,19 +49,15 @@ $(function(){
                             minPrice: minPrice,
                             ctx: ctx,
                             page: 'tour'
-                        }
+                        };
 
-                        Common.insertTmpl('#tour',infos);
-
-                        Common.insertTmplFromFile('#minimumplans',infos,'layout/minimumplans.tpl');
-                        Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
-                        Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
-
+                        Common.insertTmpl('#tour', data);
+                        Common.insertTmplFromFile('#minimumplans', data, 'layout/minimumplans.tpl');
+                        Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+                        Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
                     });
                 });
             });
         });
-
     });
-
 });

@@ -5,31 +5,26 @@ $(function(){
             .orderings("[my.blog.date desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
     Common.getCtx().then(function(ctx) {
 
         getBlog(ctx, function(err, blog) {
-
-            var infos = {
+            var data = {
                 documents: blog,
                 ctx: ctx,
                 page: 'blog',
                 params: Common.parseQS(window.location.search.substring(1))
-            }
+            };
 
-            Common.insertTmplFromFile('#blog-list',infos,'layout/bloglist.tpl').then(function() {
-                Common.insertTmplFromFile('.empty #blogsearch',infos,'layout/blogsearch.tpl');
+            Common.insertTmplFromFile('#blog-list', data,'layout/bloglist.tpl').then(function() {
+                Common.insertTmplFromFile('.empty #blogsearch', data,'layout/blogsearch.tpl');
             });
-            
-            Common.insertTmplFromFile('#blogsearch',infos,'layout/blogsearch.tpl');
-            Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
-            Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
+            Common.insertTmplFromFile('#blogsearch', data, 'layout/blogsearch.tpl');
+            Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+            Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
         });
-
     });
-
 });
-

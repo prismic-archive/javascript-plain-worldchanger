@@ -1,12 +1,12 @@
 $(function(){
-    
+
     function getFriendlyArgs(ctx, callback) {
         ctx.api.form("arguments")
             .query('[[:d = at(document.tags, ["userfriendly"])][:d = at(document.tags, ["featured"])]]')
             .orderings("[my.argument.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
@@ -16,7 +16,7 @@ $(function(){
             .orderings("[my.argument.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
@@ -26,7 +26,7 @@ $(function(){
             .orderings("[my.faq.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
@@ -36,7 +36,7 @@ $(function(){
             .orderings("[my.pricing.price]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results[0].getNumber('pricing.price'))
+                callback(err, docs.results[0].getNumber('pricing.price'));
             });
     }
 
@@ -48,7 +48,7 @@ $(function(){
                     getQuestions(ctx, function(err2, questions) {
                         getMinPrice(ctx, function(err3, minPrice) {
 
-                            var infos = {
+                            var data = {
                                 friendlyArgs: friendlyArgs,
                                 designArgs: designArgs,
                                 questions: questions,
@@ -56,21 +56,17 @@ $(function(){
                                 minPrice: minPrice,
                                 ctx: ctx,
                                 page: 'home'
-                            }
+                            };
 
-                            Common.insertTmpl('#homepage',infos);
-
-                            Common.insertTmplFromFile('#minimumplans',infos,'layout/minimumplans.tpl');
-                            Common.insertTmplFromFile('#faqaccordion',infos,'layout/faqaccordion.tpl');
-                            Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
-                            Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
-
+                            Common.insertTmpl('#homepage', data);
+                            Common.insertTmplFromFile('#minimumplans', data, 'layout/minimumplans.tpl');
+                            Common.insertTmplFromFile('#faqaccordion', data, 'layout/faqaccordion.tpl');
+                            Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+                            Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
                         });
                     });
                 });
             });
         });
-
     });
-
 });

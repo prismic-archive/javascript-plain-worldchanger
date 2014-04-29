@@ -1,123 +1,98 @@
 <!DOCTYPE html>
-
 <html>
-
-    <head>
-    	<title>WorldChanger - Change your world now!</title>
-
-    	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-		<link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
-
-        <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
-        <script src="assets/javascripts/vendor/prismic.io.js"></script>
-        <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
-        <script src="assets/javascripts/common.js"></script>
-        <script src="assets/javascripts/tour.js"></script>
-
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
-	  	<link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
-    </head>
-
-    <body>
-    	<div class="wrapper">
-
-    		<div id="menu"></div>
-
-			<article id="tour">
-				<script type="text/template">
-
-				<div class="container">
-					<div class="page-title">
-						<%= tour.getStructuredText("article.title") ? tour.getStructuredText("article.title").asHtml(ctx) : '' %>
-						<%= tour.getStructuredText("article.lede") ? tour.getStructuredText("article.lede").asHtml(ctx) : '' %>
-					</div>
-				</div>
-
-				<div id="<%= argPhoto.id %>" class="large-image large-bright-image container">
-					<style type="text/css">
-						#<%= argPhoto.id %> {background-image: url(<%= argPhoto.getImage("argument.photo").views.large.url %>)}
-						@media (max-width: 992px) {
-							#<%= argPhoto.id %> {background-image: url(<%= argPhoto.getImage("argument.photo").views.medium.url %>)}
-						}
-						@media (max-width: 500px) {
-							#<%= argPhoto.id %> {background-image: url(<%= argPhoto.getImage("argument.photo").views.small.url %>)}
-						}
-					</style>
-					<div class="row">
-						<div class="col-sm-5 col-sm-offset-7">
-							<h2> <%= argPhoto.getStructuredText("argument.title") ? argPhoto.getStructuredText("argument.title").getTitle().text : '' %> </h2>
-							<%= argPhoto.getStructuredText("argument.catcher_description") ? argPhoto.getStructuredText("argument.catcher_description").asHtml(ctx) : '' %>
-						</div>
-					</div>
-				</div>
-
-				<div class="container">
-					<div class="row">
-
-						<div id="<%= args[0].id %>" class="half-regular col-sm-5 col-sm-offset-1">
-							<img class="icon" src="<%= args[0].getImage('argument.icon') && args[0].getImage('argument.icon').views.small ? args[0].getImage('argument.icon').views.small.url : '' %>">
-							<h2><%= args[0].getStructuredText('argument.title') ? args[0].getStructuredText('argument.title').getTitle().text : '' %></h2>
-							<%= args[0].getStructuredText('argument.description') ? args[0].getStructuredText('argument.description').asHtml(ctx) : '' %>
-
-						</div>
-
-						<div id="<%= args[1].id %>" class="half-regular col-sm-5 col-sm-offset-1">
-							<img class="icon" src="<%= args[1].getImage('argument.icon') && args[1].getImage('argument.icon').views.small ? args[1].getImage('argument.icon').views.small.url : '' %>">
-							<h2><%= args[1].getStructuredText('argument.title') ? args[1].getStructuredText('argument.title').getTitle().text : '' %></h2>
-							<%= args[1].getStructuredText('argument.description') ? args[1].getStructuredText('argument.description').asHtml(ctx) : '' %>
-						</div>
-
-					</div>
-				</div>
-				
-				<div id="<%= argPanoramaphoto.id %>" class="large-image large-dark-image">
-					<style type="text/css">
-						#<%= argPanoramaphoto.id %> {background-image: url(<%= argPanoramaphoto.getImage('argument.panoramaphoto').views.large.url %>)}
-						@media (max-width: 992px) {
-							#<%= argPanoramaphoto.id %> {background-image: url(<%= argPanoramaphoto.getImage('argument.panoramaphoto').views.medium.url %>)}
-						}
-						@media (max-width: 500px) {
-							#<%= argPanoramaphoto.id %> {background-image: url(<%= argPanoramaphoto.getImage('argument.panoramaphoto').views.small.url %>)}
-						}
-					</style>
-					<div class="container">
-						<h2><%= argPanoramaphoto.getStructuredText('argument.title') ? argPanoramaphoto.getStructuredText('argument.title').getTitle().text : '' %></h2>
-						<%= argPanoramaphoto.getStructuredText('argument.description') ? argPanoramaphoto.getStructuredText('argument.description').asHtml(ctx) : '' %>
-					</div>
-				</div>
-				
-				<div class="container">
-					<div class="row regular-panels">
-						<div id="<%= args[2].id %>" class="regular-panel col-sm-6">
-							<h2><%= args[2].getStructuredText('argument.title') ? args[2].getStructuredText('argument.title').getTitle().text : '' %></h2>
-							<%= args[2].getStructuredText('argument.description') ? args[2].getStructuredText('argument.description').asHtml(ctx) : '' %>
-						</div>
-						<div id="<%= args[3].id %>" class="regular-panel col-sm-6">
-							<h2><%= args[3].getStructuredText('argument.title') ? args[3].getStructuredText('argument.title').getTitle().text : '' %></h2>
-							<%= args[3].getStructuredText('argument.description') ? args[3].getStructuredText('argument.description').asHtml(ctx) : '' %>
-						</div>
-						
-					</div>
-				</div>
-
-				<% for (var i = 4; i < args.length ; i++) { %>
-
-					<div id="<%= args[i].id %>" class="container regular" style="background-image: url('<%= args[i].getImage('argument.icon') && args[i].getImage('argument.icon').views.small ? args[i].getImage('argument.icon').views.small.url : '' %>')">
-						<h2><%= args[i].getStructuredText('argument.title') ? args[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
-						<%= args[i].getStructuredText('argument.description') ? args[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
-					</div>
-				<% }; %>
-
-				<div id="minimumplans"></div>
-
-				</script>
-			</article>
-
-			<div id="footer"></div>     	
-
-	    </div>
-	</body>
-
+  <head>
+    <title>WorldChanger - Change your world now!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
+    <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
+    <script src="assets/javascripts/vendor/prismic.io.js"></script>
+    <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="assets/javascripts/common.js"></script>
+    <script src="assets/javascripts/tour.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/styles.css">
+    <link rel="stylesheet" type="text/css" href="assets/stylesheets/application.css">
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="menu"></div>
+      <article id="tour">
+        <script type="text/template">
+          <div class="container">
+            <div class="page-title">
+              <%= tour.getStructuredText("article.title") ? tour.getStructuredText("article.title").asHtml(ctx) : '' %>
+              <%= tour.getStructuredText("article.lede") ? tour.getStructuredText("article.lede").asHtml(ctx) : '' %>
+            </div>
+          </div>
+          <div id="<%= argPhoto.id %>" class="large-image large-bright-image container">
+            <style type="text/css">
+              #<%= argPhoto.id %> {background-image: url(<%= argPhoto.getImage("argument.photo").views.large.url %>)}
+              @media (max-width: 992px) {
+              #<%= argPhoto.id %> {background-image: url(<%= argPhoto.getImage("argument.photo").views.medium.url %>)}
+              }
+              @media (max-width: 500px) {
+              #<%= argPhoto.id %> {background-image: url(<%= argPhoto.getImage("argument.photo").views.small.url %>)}
+              }
+            </style>
+            <div class="row">
+              <div class="col-sm-5 col-sm-offset-7">
+                <h2> <%= argPhoto.getStructuredText("argument.title") ? argPhoto.getStructuredText("argument.title").getTitle().text : '' %> </h2>
+                <%= argPhoto.getStructuredText("argument.catcher_description") ? argPhoto.getStructuredText("argument.catcher_description").asHtml(ctx) : '' %>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div id="<%= args[0].id %>" class="half-regular col-sm-5 col-sm-offset-1">
+                <img class="icon" src="<%= args[0].getImage('argument.icon') && args[0].getImage('argument.icon').views.small ? args[0].getImage('argument.icon').views.small.url : '' %>">
+                <h2><%= args[0].getStructuredText('argument.title') ? args[0].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                <%= args[0].getStructuredText('argument.description') ? args[0].getStructuredText('argument.description').asHtml(ctx) : '' %>
+              </div>
+              <div id="<%= args[1].id %>" class="half-regular col-sm-5 col-sm-offset-1">
+                <img class="icon" src="<%= args[1].getImage('argument.icon') && args[1].getImage('argument.icon').views.small ? args[1].getImage('argument.icon').views.small.url : '' %>">
+                <h2><%= args[1].getStructuredText('argument.title') ? args[1].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                <%= args[1].getStructuredText('argument.description') ? args[1].getStructuredText('argument.description').asHtml(ctx) : '' %>
+              </div>
+            </div>
+          </div>
+          <div id="<%= argPanoramaphoto.id %>" class="large-image large-dark-image">
+            <style type="text/css">
+              #<%= argPanoramaphoto.id %> {background-image: url(<%= argPanoramaphoto.getImage('argument.panoramaphoto').views.large.url %>)}
+              @media (max-width: 992px) {
+              #<%= argPanoramaphoto.id %> {background-image: url(<%= argPanoramaphoto.getImage('argument.panoramaphoto').views.medium.url %>)}
+              }
+              @media (max-width: 500px) {
+              #<%= argPanoramaphoto.id %> {background-image: url(<%= argPanoramaphoto.getImage('argument.panoramaphoto').views.small.url %>)}
+              }
+            </style>
+            <div class="container">
+              <h2><%= argPanoramaphoto.getStructuredText('argument.title') ? argPanoramaphoto.getStructuredText('argument.title').getTitle().text : '' %></h2>
+              <%= argPanoramaphoto.getStructuredText('argument.description') ? argPanoramaphoto.getStructuredText('argument.description').asHtml(ctx) : '' %>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row regular-panels">
+              <div id="<%= args[2].id %>" class="regular-panel col-sm-6">
+                <h2><%= args[2].getStructuredText('argument.title') ? args[2].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                <%= args[2].getStructuredText('argument.description') ? args[2].getStructuredText('argument.description').asHtml(ctx) : '' %>
+              </div>
+              <div id="<%= args[3].id %>" class="regular-panel col-sm-6">
+                <h2><%= args[3].getStructuredText('argument.title') ? args[3].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                <%= args[3].getStructuredText('argument.description') ? args[3].getStructuredText('argument.description').asHtml(ctx) : '' %>
+              </div>
+              
+            </div>
+          </div>
+          <% for (var i = 4; i < args.length ; i++) { %>
+             <div id="<%= args[i].id %>" class="container regular" style="background-image: url('<%= args[i].getImage('argument.icon') && args[i].getImage('argument.icon').views.small ? args[i].getImage('argument.icon').views.small.url : '' %>')">
+               <h2><%= args[i].getStructuredText('argument.title') ? args[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
+               <%= args[i].getStructuredText('argument.description') ? args[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
+             </div>
+             <% }; %>
+             <div id="minimumplans"></div>
+        </script>
+      </article>
+      <div id="footer"></div>
+    </div>
+  </body>
 </html>
-

@@ -6,7 +6,7 @@ $(function(){
             .orderings("[my.faq.priority desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
@@ -15,7 +15,7 @@ $(function(){
             .orderings("[my.pricing.price]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results)
+                callback(err, docs.results);
             });
     }
 
@@ -25,24 +25,20 @@ $(function(){
             getplans(ctx, function(err, plans) {
                 getQuestions(ctx, function(err1, questions) {
 
-                    var infos = {
+                    var data = {
                         pricing: pricing,
                         plans: plans,
                         questions: questions,
                         ctx: ctx,
                         page: 'pricing'
-                    }
+                    };
 
-                    Common.insertTmpl('#pricing',infos);
-
-                    Common.insertTmplFromFile('#faqaccordion',infos,'layout/faqaccordion.tpl');
-                    Common.insertTmplFromFile('#menu',infos,'layout/menu.tpl');
-                    Common.insertTmplFromFile('#footer',infos,'layout/footer.tpl');
-
+                    Common.insertTmpl('#pricing', data);
+                    Common.insertTmplFromFile('#faqaccordion', data, 'layout/faqaccordion.tpl');
+                    Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+                    Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
                 });
             });
         });
-
     });
-
 });
