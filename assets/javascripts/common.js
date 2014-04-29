@@ -22,19 +22,19 @@ window.Common = {
                     if(documentLink.isBroken) return;
 
                     if(documentLink.id == ctx.api.bookmarks['about']) {
-                      return '/about.html';
+                        return '/about.html';
                     }
                     if(documentLink.id == ctx.api.bookmarks['faq']) {
-                      return '/faq.html';
+                        return '/faq.html';
                     }
                     if(documentLink.id == ctx.api.bookmarks['homepage']) {
-                      return '/homepage.html';
+                        return '/homepage.html';
                     }
                     if(documentLink.id == ctx.api.bookmarks['pricing']) {
-                      return '/pricing.html';
+                        return '/pricing.html';
                     }
                     if(documentLink.id == ctx.api.bookmarks['tour']) {
-                      return '/tour.html';
+                        return '/tour.html';
                     }
                 }
             };
