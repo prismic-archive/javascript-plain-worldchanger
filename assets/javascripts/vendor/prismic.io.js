@@ -190,7 +190,8 @@
                 return new Ref(
                     r.ref,
                     r.label,
-                    r.isMasterRef
+                    r.isMasterRef,
+                    r.scheduledAt
                 );
             }) || [];
 
@@ -731,10 +732,11 @@
     /**
      * Embodies a prismic.io ref (a past or future point in time you can query  )
      */
-    function Ref(ref, label, isMaster) {
+    function Ref(ref, label, isMaster, scheduledAt) {
         this.ref = ref;
         this.label = label;
         this.isMaster = isMaster;
+        this.scheduledAt = scheduledAt;
     }
     Ref.prototype = {};
 

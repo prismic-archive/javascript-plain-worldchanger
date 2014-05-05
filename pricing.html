@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WorldChanger - Change your world now!</title>
+    <title>WorldChanger - Try WorldChanger free for 30 days</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
     <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
     <script src="assets/javascripts/vendor/prismic.io.js"></script>
     <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="assets/javascripts/vendor/moment.min.js"></script>
     <script src="assets/javascripts/common.js"></script>
     <script src="assets/javascripts/pricing.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
@@ -16,6 +17,7 @@
   <body>
     <div class="wrapper">
       <div id="menu"></div>
+      <div id="refselect"></div>
       <article id="pricing">
         <script type="text/template">
           <div class="container">
@@ -25,12 +27,12 @@
             </div>
             <div class="row plans">
               <% plans.forEach(function (plan) { %>
-              <div class="col-sm-4 plan" style="background-image: url('<%= plan.getImage('pricing.image').views.icon.url %>')">
+              <div class="col-sm-4 plan" style="background-image: url('<%= plan.getImageView('pricing.image','icon').url %>')">
                 <p class="price">$<%= plan.getNumber('pricing.price') ? plan.getNumber('pricing.price') : '' %>/mo</p>
                 <h2><%= plan.getStructuredText('pricing.name') ? plan.getStructuredText('pricing.name').getTitle().text : '' %></h2>
                 <p><%= plan.getStructuredText('pricing.bestfor') ? plan.getStructuredText('pricing.bestfor').getFirstParagraph().text : '' %></p>
                 <p>Get <%= plan.getNumber('pricing.magnitude') ? plan.getNumber('pricing.magnitude') : '' %>% of your world changed.</p>
-                <a href="/tour.html" class="btn btn-pricing">learn more</a>
+                <a href=<%= ctx.linkTo("/tour.html") %> class="btn btn-pricing">learn more</a>
               </div>
               <% }); %>
             </div>

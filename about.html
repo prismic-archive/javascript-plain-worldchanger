@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WorldChanger - Change your world now!</title>
+    <title>WorldChanger - At WorldChanger, we change your world everyday</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" rel="stylesheet" type="text/css">
     <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
     <script src="assets/javascripts/vendor/prismic.io.js"></script>
     <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="assets/javascripts/vendor/moment.min.js"></script>
     <script src="assets/javascripts/common.js"></script>
     <script src="assets/javascripts/about.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
@@ -16,6 +17,7 @@
   <body>
     <div class="wrapper">
       <div id="menu"></div>
+      <div id="refselect"></div>
       <article id="about">
         <script type="text/template">
           <div class="container">
@@ -28,7 +30,7 @@
               <div class="col-md-3 staff clearfix" id="<%= staffMember.id %>">
                 <p class="photo">
                   <span class="picture" data-picture>
-                    <img src="<%= staffMember.getImage('author.photo') && staffMember.getImage('author.photo').views.large ? staffMember.getImage('author.photo').views.large.url : '' %>">
+                    <img src="<%= staffMember.getImage('author.photo') && staffMember.getImageView('author.photo','large') ? staffMember.getImageView('author.photo','large').url : '' %>">
                   </span>
                 </p>
                 <h3><%= staffMember.getStructuredText('author.fullname') ? staffMember.getStructuredText('author.fullname').getTitle().text : '' %></h3>

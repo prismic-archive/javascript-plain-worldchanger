@@ -1,8 +1,7 @@
 $(function(){
 
     function getBlog(ctx, callback) {
-        var params = Common.parseQS(window.location.search.substring(1));
-
+        var params = Common.getParams();
         ctx.api.form("blog")
             .query('[[:d = fulltext(document, "'+ params.q +'")]]')
             .orderings("[my.blog.date desc]")
@@ -28,6 +27,7 @@ $(function(){
             });
             Common.insertTmplFromFile('#blogsearch', data, 'layout/blogsearch.tpl');
             Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+            Common.insertTmplFromFile('#refselect', data, 'layout/refselect.tpl');
             Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
         });
     });

@@ -22,6 +22,7 @@ $(function(){
                 };
                 Common.insertTmpl('#about', data);
                 Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+                Common.insertTmplFromFile('#refselect', data, 'layout/refselect.tpl');
                 Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
             });
         });

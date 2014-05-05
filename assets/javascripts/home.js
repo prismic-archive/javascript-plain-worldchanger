@@ -62,6 +62,7 @@ $(function(){
                             Common.insertTmplFromFile('#minimumplans', data, 'layout/minimumplans.tpl');
                             Common.insertTmplFromFile('#faqaccordion', data, 'layout/faqaccordion.tpl');
                             Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+                            Common.insertTmplFromFile('#refselect', data, 'layout/refselect.tpl');
                             Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
                         });
                     });

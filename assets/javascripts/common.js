@@ -1,5 +1,14 @@
 window.Common = {
 
+    getAccessToken: function() {
+        var params = this.parseQS(window.location.hash.substring(1));
+        return params.access_token;
+    },
+
+    getParams: function() {
+        return this.parseQS(window.location.search.substring(1));
+    },
+
     getApi: function () {
         var dfd = new jQuery.Deferred();
         Prismic.Api('https://worldchanger1.prismic.io/api', function(err, api) {
@@ -8,36 +17,46 @@ window.Common = {
             } else {
                 dfd.resolve(api);
             }
-        });
+        }, this.getAccessToken());
         return dfd.promise();
     },
 
     getCtx: function() {
         return this.getApi().then(function(api) {
+            var params = Common.getParams();
             var ctx = {
-                ref: api.data.master.ref,
+                ref: params.ref ? params.ref : api.data.master.ref,
                 api: api,
+
+                linkTo: function(page) {
+                    var maybeToken = this.api.accessToken ? '#access_token=' + this.api.accessToken : '',
+                        maybeRef = this.ref != this.api.data.master.ref ? '?ref=' + this.ref : '';
+                    return page + maybeRef + maybeToken;
+                },
 
                 linkResolver: function(ctx, doc) {
                     if(doc.isBroken) return;
 
+                    var maybeToken = ctx.api.accessToken ? '#access_token=' + ctx.api.accessToken : '',
+                        maybeRef = ctx.ref != ctx.api.data.master.ref ? '?ref=' + ctx.ref : '';
+
                     if(doc.id == ctx.api.bookmarks['about']) {
-                        return '/about.html';
+                        return '/about.html' + maybeRef + maybeToken;
                     }
                     if(doc.id == ctx.api.bookmarks['faq']) {
-                        return '/faq.html';
+                        return '/faq.html' + maybeRef + maybeToken;
                     }
                     if(doc.id == ctx.api.bookmarks['homepage']) {
-                        return '/homepage.html';
+                        return '/homepage.html' + maybeRef + maybeToken;
                     }
                     if(doc.id == ctx.api.bookmarks['pricing']) {
-                        return '/pricing.html';
+                        return '/pricing.html' + maybeRef + maybeToken;
                     }
                     if(doc.id == ctx.api.bookmarks['tour']) {
-                        return '/tour.html';
+                        return '/tour.html' + maybeRef + maybeToken;
                     }
                     if(doc.type == 'blog') {
-                        return '/blogpost.html?id='+ doc.id +'&slug='+ doc.slug +'';
+                        return '/blogpost.html' + maybeRef + (maybeRef ? '&' : '?') + 'id='+ doc.id +'&slug='+ doc.slug + maybeToken;
                     }
                 }
             };

@@ -16,7 +16,7 @@ $(function(){
                 documents: blog,
                 ctx: ctx,
                 page: 'blog',
-                params: Common.parseQS(window.location.search.substring(1))
+                params: Common.getParams()
             };
 
             Common.insertTmplFromFile('#blog-list', data,'layout/bloglist.tpl').then(function() {
@@ -24,6 +24,7 @@ $(function(){
             });
             Common.insertTmplFromFile('#blogsearch', data, 'layout/blogsearch.tpl');
             Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
+            Common.insertTmplFromFile('#refselect', data, 'layout/refselect.tpl');
             Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
         });
     });

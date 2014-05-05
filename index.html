@@ -7,6 +7,7 @@
     <script src="assets/javascripts/vendor/jquery-2.0.3.min.js"></script>
     <script src="assets/javascripts/vendor/prismic.io.js"></script>
     <script src="assets/javascripts/vendor/bootstrap.min.js"></script>
+    <script src="assets/javascripts/vendor/moment.min.js"></script>
     <script src="assets/javascripts/common.js"></script>
     <script src="assets/javascripts/home.js"></script>
     <link rel="stylesheet" type="text/css" href="assets/stylesheets/bootstrap.min.css">
@@ -16,6 +17,7 @@
   <body>
     <div class="wrapper">
       <div id="menu"></div>
+      <div id="refselect"></div>
       <article id="homepage">
         <script type="text/template">
           <div class="container">
@@ -24,7 +26,7 @@
               <p> <%= home.getStructuredText("homepage.description") ? home.getStructuredText("homepage.description").asHtml(ctx) : '' %> </p>
               <p class="cta_homelink">
                 <% if (!!home.getText("homepage.cta_label")) { %>
-                <a href="/tour.html" role="button">
+                <a href=<%= ctx.linkTo("/tour.html") %> role="button">
                   <%= home.getText("homepage.cta_label") %>
                 </a>
                 <% }; %>

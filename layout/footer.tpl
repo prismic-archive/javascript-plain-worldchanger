@@ -7,7 +7,11 @@
         writing-room and content query API.
       </p>
       <p>
-        <a href="/signin">Sign in to preview changes</a>
+        <% if (ctx.api.accessToken) { %>
+          <a href="/index.html">Sign out</a>
+        <% } else { %>
+          <a href="/signin.html">Sign in to preview changes</a>
+        <% } %>
       </p>
     </footer>
   </div>
