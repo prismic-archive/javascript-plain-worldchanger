@@ -45,16 +45,13 @@
           </div>
           <div class="container">
             <div class="row">
-              <div id="<%= args[0].id %>" class="half-regular col-sm-5 col-sm-offset-1">
-                <img class="icon" src="<%= args[0].getImage('argument.icon') && args[0].getImageView('argument.icon','small') ? args[0].getImageView('argument.icon','small').url : '' %>">
-                <h2><%= args[0].getStructuredText('argument.title') ? args[0].getStructuredText('argument.title').getTitle().text : '' %></h2>
-                <%= args[0].getStructuredText('argument.description') ? args[0].getStructuredText('argument.description').asHtml(ctx) : '' %>
-              </div>
-              <div id="<%= args[1].id %>" class="half-regular col-sm-5 col-sm-offset-1">
-                <img class="icon" src="<%= args[1].getImage('argument.icon') && args[1].getImageView('argument.icon','small') ? args[1].getImageView('argument.icon','small').url : '' %>">
-                <h2><%= args[1].getStructuredText('argument.title') ? args[1].getStructuredText('argument.title').getTitle().text : '' %></h2>
-                <%= args[1].getStructuredText('argument.description') ? args[1].getStructuredText('argument.description').asHtml(ctx) : '' %>
-              </div>
+              <% for (var i = 0; i <= 1 ; i++) { %>
+                <div id="<%= args[i].id %>" class="half-regular col-sm-5 col-sm-offset-1">
+                  <img class="icon" src="<%= args[i].getImage('argument.icon') && args[i].getImageView('argument.icon','small') ? args[i].getImageView('argument.icon','small').url : '' %>">
+                  <h2><%= args[i].getStructuredText('argument.title') ? args[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                  <%= args[i].getStructuredText('argument.description') ? args[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
+                </div>
+              <% }; %>
             </div>
           </div>
           <div id="<%= argPanoramaphoto.id %>" class="large-image large-dark-image">
@@ -74,24 +71,21 @@
           </div>
           <div class="container">
             <div class="row regular-panels">
-              <div id="<%= args[2].id %>" class="regular-panel col-sm-6">
-                <h2><%= args[2].getStructuredText('argument.title') ? args[2].getStructuredText('argument.title').getTitle().text : '' %></h2>
-                <%= args[2].getStructuredText('argument.description') ? args[2].getStructuredText('argument.description').asHtml(ctx) : '' %>
-              </div>
-              <div id="<%= args[3].id %>" class="regular-panel col-sm-6">
-                <h2><%= args[3].getStructuredText('argument.title') ? args[3].getStructuredText('argument.title').getTitle().text : '' %></h2>
-                <%= args[3].getStructuredText('argument.description') ? args[3].getStructuredText('argument.description').asHtml(ctx) : '' %>
-              </div>
-              
+              <% for (var i = 2; i <= 3 ; i++) { %>
+                <div id="<%= args[i].id %>" class="regular-panel col-sm-6">
+                  <h2><%= args[i].getStructuredText('argument.title') ? args[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                  <%= args[i].getStructuredText('argument.description') ? args[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
+                </div>
+              <% }; %>
             </div>
           </div>
-          <% for (var i = 4; i < args.length ; i++) { %>
-             <div id="<%= args[i].id %>" class="container regular" style="background-image: url('<%= args[i].getImage('argument.icon') && args[i].getImageView('argument.icon','small') ? args[i].getImageView('argument.icon','small').url : '' %>')">
-               <h2><%= args[i].getStructuredText('argument.title') ? args[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
-               <%= args[i].getStructuredText('argument.description') ? args[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
-             </div>
-             <% }; %>
-             <div id="minimumplans"></div>
+            <% for (var i = 4; i < args.length ; i++) { %>
+              <div id="<%= args[i].id %>" class="container regular" style="background-image: url('<%= args[i].getImage('argument.icon') && args[i].getImageView('argument.icon','small') ? args[i].getImageView('argument.icon','small').url : '' %>')">
+                <h2><%= args[i].getStructuredText('argument.title') ? args[i].getStructuredText('argument.title').getTitle().text : '' %></h2>
+                <%= args[i].getStructuredText('argument.description') ? args[i].getStructuredText('argument.description').asHtml(ctx) : '' %>
+              </div>
+            <% }; %>
+          <div id="minimumplans"></div>
         </script>
       </article>
       <div id="footer"></div>

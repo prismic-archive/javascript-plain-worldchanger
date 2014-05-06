@@ -46,7 +46,7 @@ $(function(){
                             ctx: ctx,
                             page: 'tour'
                         };
-
+                        
                         Common.insertTmpl('#tour', data);
                         Common.insertTmplFromFile('#minimumplans', data, 'layout/minimumplans.tpl');
                         Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');

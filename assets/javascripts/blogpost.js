@@ -33,7 +33,7 @@ $(function(){
                     Common.insertTmplFromFile('#disqus_thread', {}, 'layout/disqus_thread.tpl');
 
                     $('h1 ~ p img').parents().addClass('image');
-                    $('head title').html('WorldChanger - ' + post.getStructuredText('blog.body').getTitle().text);
+                    document.title = 'WorldChanger - ' + post.getStructuredText('blog.body').getTitle().text
                 });
             });
         });
