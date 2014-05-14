@@ -13,4 +13,3 @@ $(function(){
 
     window.location.replace(url);
 });
-

@@ -34,8 +34,9 @@ $(function(){
 
                     $('h1 ~ p img').parents().addClass('image');
                     document.title = 'WorldChanger - ' + post.getStructuredText('blog.body').getTitle().text
-                });
-            });
-        });
-    });
+
+                }).fail(Common.handleError);
+            }).fail(Common.handleError);
+        }).fail(Common.handleError);
+    }).fail(Common.handleError);
 });

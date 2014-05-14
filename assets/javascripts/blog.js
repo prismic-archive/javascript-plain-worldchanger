@@ -1,17 +1,24 @@
 $(function(){
 
-    function getBlog(ctx, callback) {
+    function getBlog(ctx) {
+        var dfd = new jQuery.Deferred();
         ctx.api.form("blog")
             .orderings("[my.blog.date desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results);
+                if(err) {
+                    dfd.reject(err);
+                } else {
+                    dfd.resolve(docs.results);
+                }
             });
+        return dfd.promise();
     }
 
     Common.getCtx().then(function(ctx) {
 
-        getBlog(ctx, function(err, blog) {
+        getBlog(ctx).then(function(blog) {
+
             var data = {
                 documents: blog,
                 ctx: ctx,
@@ -26,6 +33,7 @@ $(function(){
             Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
             Common.insertTmplFromFile('#refselect', data, 'layout/refselect.tpl');
             Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
-        });
-    });
+
+        }).fail(Common.handleError);
+    }).fail(Common.handleError);
 });

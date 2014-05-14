@@ -1,25 +1,31 @@
 $(function(){
 
-    function getBlog(ctx, callback) {
-        var params = Common.getParams();
+    function getBlog(ctx) {
+        var dfd = new jQuery.Deferred(),
+            params = Common.getParams();
         ctx.api.form("blog")
             .query('[[:d = fulltext(document, "'+ params.q +'")]]')
             .orderings("[my.blog.date desc]")
             .ref(ctx.ref)
             .submit(function (err, docs) {
-                callback(err, docs.results, params);
+                if(err) {
+                    dfd.reject(err);
+                } else {
+                    dfd.resolve({blog: docs.results, params: params});
+                }
             });
+        return dfd.promise();
     }
 
     Common.getCtx().then(function(ctx) {
 
-        getBlog(ctx, function(err, blog, params) {
+        getBlog(ctx).then(function(research) {
 
             var data = {
-                documents: blog,
+                documents: research.blog,
                 ctx: ctx,
                 page: 'blogsearch',
-                params: params
+                params: research.params
             };
 
             Common.insertTmplFromFile('#blog-list', data, 'layout/bloglist.tpl').then(function(){
@@ -29,6 +35,7 @@ $(function(){
             Common.insertTmplFromFile('#menu', data, 'layout/menu.tpl');
             Common.insertTmplFromFile('#refselect', data, 'layout/refselect.tpl');
             Common.insertTmplFromFile('#footer', data, 'layout/footer.tpl');
-        });
-    });
+
+        }).fail(Common.handleError);
+    }).fail(Common.handleError);
 });

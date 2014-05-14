@@ -9,7 +9,18 @@ window.Common = {
         return this.parseQS(window.location.search.substring(1));
     },
 
-    getApi: function () {
+    handleError: function(err) {
+        // unauthorized
+        if(err.message.substring(24, 27) == '401') {
+            window.location.replace('/signin.html');
+        }
+        // forbidden
+        if(err.message.substring(24, 27) == '403') {
+            $('body').html('<h1>Error 403</h1><h2>Forbidden access</h2>');
+        }
+    },
+
+    getApi: function() {
         var dfd = new jQuery.Deferred();
         Prismic.Api('https://worldchanger1.prismic.io/api', function(err, api) {
             if(err) {
